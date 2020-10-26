@@ -7,8 +7,9 @@
   <thead>
     <tr>
       <th> 
-        <div class="<%= ("hilite" if @sort == "title") %>" id="title_header">.bg-danger</div>
+        <div class="<%= ("hilite" if @sort == "title") %>" id="title_header">.bg-danger
         <%= link_to "Movie Title", :sort => "title", :ratings=>@ratings %>
+        </div>
       </th>
       <th>Rating</th>
       <th class="<%= ("hilite" if @sort == "release_date") %>" id="release_date_header">
