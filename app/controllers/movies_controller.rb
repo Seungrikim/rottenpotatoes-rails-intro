@@ -10,13 +10,13 @@ class MoviesController < ApplicationController
     #byebug
     @movies = Movie.all
     @all_ratings = Movie.all_ratings
-    if params[:commit]
+    if params[:ratings]
       @ratings_to_show = params[:ratings].keys
       session[:filtered_rating] = @ratings_to_show
     elsif session[:filtered_rating]
-      query = Hash.new
-      session[:filtered_rating].each do |rating|
-        query['ratings['+ rating + ']'] = 1
+      query = {}
+      session[:filtered_rating].each do |rat|
+        query['ratings['+ rat + ']'] = 1
       end
       query['sort'] = params[:sort] if params[:sort]
       session[:filtered_rating] = nil
