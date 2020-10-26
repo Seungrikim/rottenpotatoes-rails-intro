@@ -11,8 +11,8 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
     if params[:ratings]
       @ratings_to_show = params[:ratings].keys
-      session[:filtered_rating] = @ratings_to_show
-    elsif session[:filtered_rating]
+      #session[:filtered_rating] = @ratings_to_show
+    """elsif session[:filtered_rating]
       query = {}
       session[:filtered_rating].each do |rating|
         query['ratings['+ rating + ']'] = 1
@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
       query['sort'] = params[:sort] if params[:sort]
       session[:filtered_rating] = nil
       flash.keep
-      redirect_to movies_path(query)
+      redirect_to movies_path(query)"""
     else
       @ratings_to_show = @all_ratings
     end
