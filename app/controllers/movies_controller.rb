@@ -21,6 +21,9 @@ class MoviesController < ApplicationController
       if params[:sort]
         store['sort'] = params[:sort]
       end
+      if params[:sort]
+        query['sort'] = params[:sort]
+      end
       session[:filtered] = nil
       flash.keep
       redirect_to movies_path(store)
