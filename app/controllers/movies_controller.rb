@@ -28,6 +28,7 @@ class MoviesController < ApplicationController
       flash.keep
       redirect_to movies_path(store)
     else
+      flash.keep
       @ratings_to_show = @all_ratings
     end
     @movies = Movie.with_ratings(@ratings_to_show)
