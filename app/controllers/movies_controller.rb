@@ -10,12 +10,12 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     @all_ratings = Movie.all_ratings
     redirect = false
-    """if params[:sort]
+    if params[:sort]
       @sorting = session[:sort]
     elsif session[:sort]
       @sorting = session[:sort]
       redirect = true
-    end"""
+    end
     
     if params[:ratings]
       @ratings_to_show = params[:ratings]
@@ -31,6 +31,16 @@ class MoviesController < ApplicationController
     if redirect
       redirect_to movies_path(:sort => @sorting, :ratings => @ratings_to_show)
     end
+    
+    @moives = Movie.where(rating: @ratings_to_show)
+    
+    """Movie.find(:all, :order => @sorting ? @sorting : :id).each do |mv|
+      if @ratings_to_show.keys.include? mv[:rating]
+        (@movies ||= [ ]) << mv
+      end
+    end"""
+    session[:sort] = @sorting
+    session[:ratings] = @ratings_to_show
   end
   
   def new
