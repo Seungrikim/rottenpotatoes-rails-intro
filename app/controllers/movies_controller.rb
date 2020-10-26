@@ -34,10 +34,10 @@ class MoviesController < ApplicationController
 
     case params[:sort]
     when 'title'
-      @movies.order('title asc')
+      @movies = Movie.with_title
       @title_class = "bg-warning hilite"
     when 'release_date'
-      @movies.order('release_date asc')
+      @movies = Movie.with_release_date
       @release_date_class = "bg-warning hilite"
     end
   end
