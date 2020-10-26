@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     #byebug
     @movies = Movie.all
     @all_ratings = Movie.all_ratings
-    if params[:ratings]
+    if params[:commit]
       @ratings_to_show = params[:ratings].keys
       session[:filtered_rating] = @ratings_to_show
     elsif session[:filtered_rating]
@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
 
     case params[:sort]
     when 'title'
-      @movies.order!('title asc')
+      @movies = Movie.with_title
       @title_class = "bg-warning hilite"
     when 'release_date'
       @movies.order!('release_date asc')
