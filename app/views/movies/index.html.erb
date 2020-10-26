@@ -6,8 +6,9 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th class="<%= ("hilite" if @sort == "title") %>" id="title_header">
-        <%= link_to "Movie Title", :sort => "title", :ratings=>@ratings %>.bg-danger
+      <th> 
+        <div class="<%= ("hilite" if @sort == "title") %>" id="title_header">.bg-danger</div>
+        <%= link_to "Movie Title", :sort => "title", :ratings=>@ratings %>
       </th>
       <th>Rating</th>
       <th class="<%= ("hilite" if @sort == "release_date") %>" id="release_date_header">
