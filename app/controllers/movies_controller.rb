@@ -12,26 +12,21 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
     if params[:ratings]
       @ratings_to_show = params[:ratings].keys
-      session[:filtered] = @ratings_to_show
-    elsif session[:filtered]
-      store = {}
-      session[:filtered].each do |rat|
-        store['ratings['+ rat + ']'] = 1
+      session[:filtered_rating] = @ratings_to_show
+    elsif session[:filtered_rating]
+      query = Hash.new
+      session[:filtered_rating].each do |rating|
+        query['ratings['+ rating + ']'] = 1
       end
-      if params[:sort]
-        store['sort'] = params[:sort]
-      end
-      if params[:sort]
-        query['sort'] = params[:sort]
-      end
-      session[:filtered] = nil
+      query['sort'] = params[:sort] if params[:sort]
+      session[:filtered_rating] = nil
       flash.keep
-      redirect_to movies_path(store)
+      redirect_to movies_path(query)
     else
-      flash.keep
       @ratings_to_show = @all_ratings
     end
-    @movies = Movie.with_ratings(@ratings_to_show)
+
+    @movies.where!(rating: @ratings_to_show)
 
     case params[:sort]
     when 'title'
