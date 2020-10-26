@@ -28,6 +28,9 @@ class MoviesController < ApplicationController
       end
       redirect = true
     end
+    if redirect
+      redirect_to_movies_path(:sort => @sorting, :ratings => @ratings)
+    end
   end
   
   def new
