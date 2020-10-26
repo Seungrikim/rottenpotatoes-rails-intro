@@ -8,8 +8,28 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    @all_ratings = Movie.all_ratings
+    redirect = false
+    if params[:sort]
+      @sorting = session[:sort]
+    elsif session[:sort]
+      @sorting = session[:sort]
+      redirect = true
+    end
+    
+    if params[:ratings]
+      @ratings_to_show = params[:ratings]
+    elsif session[:ratings]
+      @ratings_to_show = session[:ratings]
+      redirect = true
+    else
+      @all_ratings.each do |rat|
+        (@ratings_to_show ||= { })[rat] = 1
+      end
+      redirect = true
+    end
   end
-
+  
   def new
     # default: render 'new' template
   end
