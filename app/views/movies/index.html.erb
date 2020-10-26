@@ -2,6 +2,8 @@
 <h2>All Movies</h2>
 
 <%#  Part 2: Start here... %>
+
+<table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
       <th class="<%= ("hilite" if @sort == "title") %>" id="title_header">
@@ -11,16 +13,6 @@
       <th class="<%= ("hilite" if @sort == "release_date") %>" id="release_date_header">
         <%= link_to "Release Date", :sort => "release_date", :ratings=>@ratings %>
       </th>
-      <th>More Info</th>
-    </tr>
-  </thead>
-
-<table class="table table-striped col-md-12" id="movies">
-  <thead>
-    <tr>
-      <th>Movie Title</th>
-      <th>Rating</th>
-      <th>Release Date</th>
       <th>More Info</th>
     </tr>
   </thead>
