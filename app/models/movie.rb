@@ -9,10 +9,4 @@ class Movie < ActiveRecord::Base
   # if ratings_list is nil, retrieve ALL movies
     Movie.where(rating: ratings_list)
   end
-  def self.with_title
-    Movie.order('title asc')
-  end
-  def self.with_release_date
-    Movie.order('release_date asc')
-  end
 end
