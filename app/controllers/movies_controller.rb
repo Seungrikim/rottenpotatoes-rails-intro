@@ -7,11 +7,23 @@ class MoviesController < ApplicationController
   end
 
   def index
+    #byebug
     @movies = Movie.all
     @all_ratings = Movie.all_ratings
     if params[:ratings]
       @ratings_to_show = params[:ratings].keys
-      #session[:filtered_rating] = @ratings_to_show
+      session[:filtered] = @ratings_to_show
+    elsif session[:filtered]
+      store = {}
+      session[:filtered].each do |rat|
+        store['ratings['+ rat + ']'] = 1
+      end
+      if params[:sort]
+        store['sort'] = params[:sort]
+      end
+      session[:filtered] = nil
+      flash.keep
+      redirect_to movies_path(store)
     else
       @ratings_to_show = @all_ratings
     end
@@ -19,10 +31,10 @@ class MoviesController < ApplicationController
 
     case params[:sort]
     when 'title'
-      @movies.order!('title asc')
+      @movies.order('title ASC')
       @title_class = "bg-warning hilite"
     when 'release_date'
-      @movies.order!('release_date asc')
+      @movies.order('release_date ASC')
       @release_date_class = "bg-warning hilite"
     end
   end
