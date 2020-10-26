@@ -12,4 +12,7 @@ class Movie < ActiveRecord::Base
   def self.with_title
     Movie.order('title asc')
   end
+  def self.with_release_date
+    Movie.order('release_date asc')
+  end
 end

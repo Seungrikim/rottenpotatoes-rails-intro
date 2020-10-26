@@ -26,14 +26,14 @@ class MoviesController < ApplicationController
       @ratings_to_show = @all_ratings
     end
 
-    @movies.where!(rating: @ratings_to_show)
+    @movies = Movie.with_ratings(@ratings_to_show)
 
     case params[:sort]
     when 'title'
       @movies = Movie.with_title
       @title_class = "bg-warning hilite"
     when 'release_date'
-      @movies.order!('release_date asc')
+      @movies = Movie.with_release_date
       @release_date_class = "bg-warning hilite"
     end
   end
