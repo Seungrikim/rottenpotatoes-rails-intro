@@ -10,12 +10,12 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     @all_ratings = Movie.all_ratings
     redirect = false
-    if params[:sort]
+    """if params[:sort]
       @sorting = session[:sort]
     elsif session[:sort]
       @sorting = session[:sort]
       redirect = true
-    end
+    end"""
     
     if params[:ratings]
       @ratings_to_show = params[:ratings]
@@ -24,7 +24,7 @@ class MoviesController < ApplicationController
       redirect = true
     else
       @all_ratings.each do |rat|
-        (@ratings_to_show ||= { })[rat] = 0
+        (@ratings_to_show ||= { })[rat] = 1
       end
       redirect = true
     end
