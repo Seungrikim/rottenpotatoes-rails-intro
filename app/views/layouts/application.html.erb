@@ -17,19 +17,6 @@
       <%# Render "flash" messages in our application. This loads _flash.erb %>
       <%= render 'layouts/flash' %>
       <main id="main">
-        <% if flash[:notice] %>
-    <div class="alert alert-danger">
-      <div class="message" id="notice">
-        <%= flash[:notice] %>
-      </div>
-    </div>
-  <% elsif flash[:warning] %>
-    <div class="alert alert-danger">
-      <div class="message" id="warning">
-        <%= flash[:warning] %>
-      </div>
-    </div>
-  <% end %>
         <%= yield %>
       </main>
     </div>
