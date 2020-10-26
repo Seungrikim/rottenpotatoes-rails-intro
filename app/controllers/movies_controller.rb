@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
       @ratings_to_show = params[:ratings].keys
       session[:filtered_rating] = @ratings_to_show
     elsif session[:filtered_rating]
-      query = Hash.new
+      query = {}
       session[:filtered_rating].each do |rating|
         query['ratings['+ rating + ']'] = 1
       end
@@ -35,38 +35,6 @@ class MoviesController < ApplicationController
       @movies.order!('release_date asc')
       @release_date_class = "hilite"
     end
-    """redirect = false
-    if params[:sort]
-      @sorting = session[:sort]
-    elsif session[:sort]
-      @sorting = session[:sort]
-      redirect = true
-    end
-    
-    if params[:ratings]
-      @ratings_to_show = params[:ratings]
-    elsif session[:ratings]
-      @ratings_to_show = session[:ratings]
-      redirect = true
-    else
-      @all_ratings.each do |rat|
-        (@ratings_to_show ||= { })[rat] = 1
-      end
-      redirect = true
-    end
-    if redirect
-      redirect_to movies_path(:sort => @sorting, :ratings => @ratings_to_show)
-    end
-    
-    @moives = Movie.where(rating: @ratings_to_show)
-    
-    Movie.find(:all, :order => @sorting ? @sorting : :id).each do |mv|
-      if @ratings_to_show.keys.include? mv[:rating]
-        (@movies ||= [ ]) << mv
-      end
-    end
-    session[:sort] = @sorting
-    session[:ratings] = @ratings_to_show"""
   end
   
   def new
