@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
       redirect = true
     end
     if redirect
-      redirect_to_movies_path(:sort => @sorting, :ratings => @ratings)
+      redirect_to movies_path(:sort => @sorting, :ratings => @ratings)
     end
   end
   
