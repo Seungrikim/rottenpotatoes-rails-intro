@@ -9,7 +9,33 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
     @all_ratings = Movie.all_ratings
-    redirect = false
+    if params[:ratings]
+      @ratings_to_show = params[:ratings].keys
+      session[:filtered_rating] = @ratings_to_show
+    elsif session[:filtered_rating]
+      query = Hash.new
+      session[:filtered_rating].each do |rating|
+        query['ratings['+ rating + ']'] = 1
+      end
+      query['sort'] = params[:sort] if params[:sort]
+      session[:filtered_rating] = nil
+      flash.keep
+      redirect_to movies_path(query)
+    else
+      @ratings_to_show = @all_ratings
+    end
+
+    @movies.where!(rating: @ratings_to_show)
+
+    case params[:sort]
+    when 'title'
+      @movies.order!('title asc')
+      @title_class = "hilite"
+    when 'release_date'
+      @movies.order!('release_date asc')
+      @release_date_class = "hilite"
+    end
+    """redirect = false
     if params[:sort]
       @sorting = session[:sort]
     elsif session[:sort]
@@ -34,13 +60,13 @@ class MoviesController < ApplicationController
     
     @moives = Movie.where(rating: @ratings_to_show)
     
-    """Movie.find(:all, :order => @sorting ? @sorting : :id).each do |mv|
+    Movie.find(:all, :order => @sorting ? @sorting : :id).each do |mv|
       if @ratings_to_show.keys.include? mv[:rating]
         (@movies ||= [ ]) << mv
       end
-    end"""
+    end
     session[:sort] = @sorting
-    session[:ratings] = @ratings_to_show
+    session[:ratings] = @ratings_to_show"""
   end
   
   def new
