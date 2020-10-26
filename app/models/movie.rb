@@ -1,6 +1,7 @@
 class Movie < ActiveRecord::Base
+  @all_ratings = Array['G','PG','PG-13','R']
   def self.all_ratings
-    ratings = Movie.select(:rating).map(&:rating).uniq
+    @all_ratings
   end
   def self.with_ratings(ratings_list)
   # if ratings_list is an array such as ['G', 'PG', 'R'], retrieve all
