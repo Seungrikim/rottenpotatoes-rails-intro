@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
       @ratings_to_show = @all_ratings
     end
 
-    @movies.where!(rating: @ratings_to_show)
+    @movies = Movie.with_ratings(@ratings_to_show)
 
     case params[:sort]
     when 'title'
